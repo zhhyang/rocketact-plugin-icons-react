@@ -1,25 +1,18 @@
-const merge = require('babel-merge');
 module.exports = (api) => {
   api.chainWebpack((webpackChain) => {
     webpackChain.module
-      .rule('compile')
+      .rule('svg')
+      .test(/\.svg(\?v=\d+\.\d+\.\d+)?$/)
       .use('babel')
-      .tap((options) =>
-        merge(options, {
-          plugins: [
-            [
-              require.resolve('babel-plugin-named-asset-import'),
-              {
-                loaderMap: {
-                  svg: {
-                    ReactComponent:
-                      '@svgr/webpack?-svgo,+titleProp,+ref![path]',
-                  },
-                },
-              },
-            ],
-          ],
-        }),
-      );
+      .loader('babel-loader')
+      .end()
+      .use('svg')
+      .loader('@svgr/webpack')
+      .options({
+        babel: false,
+        icon: true,
+      })
+      .end()
+      .end();
   });
 };
