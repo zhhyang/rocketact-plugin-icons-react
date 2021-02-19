@@ -1,4 +1,4 @@
-# rocketact plugin for @jdcfe/icons-react use svg
+# rocketact plugin for use svg as React Component
 
 
 ## 自定义 SVG 图标
